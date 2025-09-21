@@ -14,6 +14,9 @@ endif()
 find_package(ament_cmake REQUIRED) # ROS2 build tool
 find_package(rclcpp REQUIRED)      # ROS2 C++ package
 find_package(nav_msgs REQUIRED)
+find_package(sensor_msgs REQUIRED)
+find_package(tf2 REQUIRED)
+find_package(tf2_ros REQUIRED)
 
 # Compiles source files into a library
 # A library is not executed, instead other executables can link
@@ -30,6 +33,9 @@ ament_target_dependencies(map_memory_lib
   rclcpp
   sensor_msgs
   nav_msgs
+  geometry_msgs
+  tf2
+  tf2_ros
 )
 
 # Create ROS2 node executable from source files

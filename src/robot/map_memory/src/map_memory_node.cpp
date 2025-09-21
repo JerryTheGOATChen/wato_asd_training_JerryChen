@@ -44,7 +44,7 @@ void MapMemoryNode::odomCallback(const nav_msgs::msg::Odometry::SharedPtr msg) {
 void MapMemoryNode::updateMap() {
   if (should_update_map && !latest_costmap.data.empty()) {
     global_map = latest_costmap; // TODO: merge instead of overwrite
-    map_pub->publish(global_map_);
+    map_pub->publish(global_map);
     should_update_map = false;
     RCLCPP_INFO(this->get_logger(), "Published updated global map.");
   }

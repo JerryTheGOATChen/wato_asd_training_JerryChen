@@ -39,4 +39,4 @@ ACTIVE_MODULES="robot gazebo vis_tools"
 ## Platform in which to build the docker images with. 
 ## Either arm64 (apple silicon, raspberry pi) or amd64 (most computers)
 # PLATFORM="amd64"
-export FOXGLOVE_BRIDGE_PORT=8080
+export FOXGLOVE_BRIDGE_PORT=6767

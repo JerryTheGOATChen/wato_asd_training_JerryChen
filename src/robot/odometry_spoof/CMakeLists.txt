@@ -13,11 +13,13 @@ endif()
 # Search for dependencies required for building this package
 find_package(ament_cmake REQUIRED) # ROS2 build tool
 find_package(rclcpp REQUIRED)      # ROS2 C++ package
-find_package(geometry_msgs REQUIRED)
+find_package(sensor_msgs REQUIRED)
+find_package(nav_msgs REQUIRED)
 find_package(tf2 REQUIRED)
 find_package(tf2_ros REQUIRED)
 find_package(tf2_geometry_msgs REQUIRED)
-find_package(nav_msgs REQUIRED)
+
+
 
 # Create ROS2 node executable from source files
 add_executable(odometry_spoof src/odometry_spoof.cpp)
@@ -26,11 +28,12 @@ target_include_directories(odometry_spoof
 # Add ROS2 dependencies required by package
 ament_target_dependencies(odometry_spoof
   rclcpp
+  sensor_msgs
   geometry_msgs
+  nav_msgs
   tf2
   tf2_ros
   tf2_geometry_msgs
-  nav_msgs
 )
 
 # Copy executable to installation location

@@ -2,13 +2,13 @@
 #include <memory>
 #include <cmath>
 
-#include "costmap/costmap_node.hpp"
+#include "costmap_node.hpp"
 
-CostmapNode::CostmapNode(): Node("costmap"), costmap_(robot::CostmapCore(this->get_logger()))
+CostmapNode::CostmapNode(): Node("costmap"), costmap(robot::CostmapCore(this->get_logger()))
 {
   // Timer publisher
-  string_pub = this->create_publisher<std_msgs::msg::String>("/test_topic", 10);
-  timer = this->create_wall_timer(std::chrono::milliseconds(500), std::bind(&CostmapNode::publishMessage, this));
+  //string_pub = this->create_publisher<std_msgs::msg::String>("/test_topic", 10);        Testing
+  //timer = this->create_wall_timer(std::chrono::milliseconds(500), std::bind(&CostmapNode::publishMessage, this));
 
   // LaserScan subscription
   lidar_sub = this->create_subscription<sensor_msgs::msg::LaserScan>("/lidar", 10, std::bind(&CostmapNode::laserCallback, this, std::placeholders::_1));
@@ -16,17 +16,18 @@ CostmapNode::CostmapNode(): Node("costmap"), costmap_(robot::CostmapCore(this->g
   costmap_pub = this->create_publisher<nav_msgs::msg::OccupancyGrid>("/costmap", 10);
 }
 
-void CostmapNode::publishMessage() {
+/*void CostmapNode::publishMessage() {
   auto message = std_msgs::msg::String();
   message.data = "Hello, ROS 2!";
   RCLCPP_INFO(this->get_logger(), "Publishing: '%s'", message.data.c_str());
   string_pub->publish(message);
 }
+*/
 
 void CostmapNode::laserCallback(const sensor_msgs::msg::LaserScan::SharedPtr scan) {
   float resolution = 0.1;
-  int width = 30;
-  int height = 30;
+  int width = 300;      //Maybe change later because we only need local map not whole global
+  int height = 300;
 
   std::vector<std::vector<int>> costmap(height, std::vector<int>(width, 0));
 
